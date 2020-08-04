@@ -1,4 +1,5 @@
 import React from 'react';
+import {ADD_TODO, DELETE_TODO, STATUS_CHANGE} from "./actions";
 
 const initialStore = {
     errors: [],
@@ -11,11 +12,11 @@ const initialStore = {
 
 export const todos = (state = initialStore, action) => {
     switch (action.type) {
-        case 'ADD_TODO':
+        case ADD_TODO:
             return {...state,
                 todos: [...state.todos, {name: action.payload, done: false}]
             }
-        case 'STATUS_CHANGE':
+        case STATUS_CHANGE:
             const updatedStatus = state.todos.map((el, index) => {
                 if(index === action.payload){
                     return {...el, done: !el.done}
@@ -25,7 +26,7 @@ export const todos = (state = initialStore, action) => {
             return {...state,
                 todos: updatedStatus
             }
-        case 'DELETE_TODO':
+        case DELETE_TODO:
             const newState = state.todos.filter((el, index) => index !== action.payload);
             return {...state,
                 todos: newState
